@@ -7,112 +7,106 @@ namespace BoxGame
     {
         static int rowSize = 9;
         static int columnSize = 9;
+
+        static box A = new box();
+        static winspot winspot = new winspot();
+        
+        static player player = new player();
+        
         static void Main(string[] args)
-            {
-
-            box A = new box();
-            winspot winspot = new winspot();
-
+        {
             bool gameRunning = true;
 
-            char[,] field = new char[rowSize,columnSize];
+            char[,] field = new char[rowSize, columnSize];
             
-            int Xholder = 0;
-            int Yholder = 0;
-            
-            int boxXholder = A.column;
-            int boxYholder = A.row;
-
-            char player = 'X';
-
             bool winner = false;
 
-            while(gameRunning)
+            while (gameRunning)
             {
-                field[Yholder,Xholder] = player;
-                field[boxYholder,boxXholder] = A.vbox;
-                field[winspot.y, winspot.x] = winspot.Visual;
-
                 drawField(field);
+
                 string moveDir = Console.ReadLine();
 
-                switch(moveDir)
+                switch (moveDir)
                 {
                     case "w":
-                        field[Yholder,Xholder] = ' ';
-                        Yholder--;
+                        field[player.y, player.x] = '.';
+                        player.y--;
                         break;
-                        
+
                     case "a":
-                        field[Yholder,Xholder] = ' ';
-                        Xholder--;
+                        field[player.y, player.x] = '.';
+                        player.x--;
                         break;
 
                     case "s":
-                        field[Yholder,Xholder] = ' ';
-                        Yholder++;
+                        field[player.y, player.x] = '.';
+                        player.y++;
                         break;
 
                     case "d":
-                        field[Yholder,Xholder] = ' ';
-                        Xholder++;
+                        field[player.y, player.x] = '.';
+                        player.x++;
                         break;
                 }
 
-                if(Xholder == boxXholder && Yholder == boxYholder)
+                if (player.x == A.x && player.y == A.y)
                 {
-                    switch(moveDir)
+                    switch (moveDir)
                     {
                         case "w":
-                            field[boxYholder,boxXholder] = ' ';
-                            boxYholder--;
+                            field[A.y,A.x] = '.';
+                            A.y--;
                             break;
-                            
+
                         case "a":
-                            field[boxYholder,boxXholder] = ' ';
-                            boxXholder--;
+                            field[A.y, A.x] = '.';
+                            A.x--;
                             break;
 
                         case "s":
-                            field[boxYholder,boxXholder] = ' ';
-                            boxYholder++;
+                            field[A.y, A.x] = '.';
+                            A.y++;
                             break;
 
                         case "d":
-                            field[boxYholder,boxXholder] = ' ';
-                            boxXholder++;
+                            field[A.y, A.x] = '.';
+                            A.x++;
                             break;
                     }
                 }
 
 
-                if(Xholder < 0 ) Xholder = 0;
-                else if(Xholder > 8) Xholder = 8;
+                if (player.x < 0) player.x = 0;
+                else if (player.x > 8) player.x = 8;
 
-                if(Yholder < 0) Yholder = 0;
-                else if(Yholder > 8) Yholder = 8;
+                if (player.y < 0) player.y = 0;
+                else if (player.y > 8) player.y = 8;
 
 
-                if(boxXholder < 1 || boxXholder > 7) 
+                if (A.x < 1 || A.x > 7)
                 {
                     gameRunning = false;
                 }
-                else if(boxYholder < 1 || boxYholder > 7) 
+                else if (A.y < 1 || A.y > 7)
                 {
                     gameRunning = false;
                 }
 
-                winner = winspot.CheckWin(boxXholder, boxYholder, winner); 
-                
-                if(winner)
+                winner = winspot.CheckWin(A.x, A.y, winner);
+
+                if (winner)
                 {
                     gameRunning = false;
                 }
+
                 Console.Clear();
-            }
+
+            } //main while loop
 
             Console.Clear();
-            if(winner == true)
+
+            if (winner == true)
             {
                 Console.WriteLine("You won");
             }
@@ -122,26 +116,30 @@ namespace BoxGame
             }
 
             Console.ReadKey();
-            
+
         }
 
         static void drawField(char[,] field)
         {
-            Console.WriteLine("---------------------");
+            Console.WriteLine("-----------");
 
             for (int i = 0; i < columnSize; i++) //rows loop
             {
                 Console.Write("|");
                 for (int j = 0; j < columnSize; j++) //columns loop
                 {
-                    Console.Write(" ");
-                    Console.Write(field[i,j]);
+                    field[i, j] = '.';
+
+                    field[winspot.wy, winspot.wx] = winspot.Visual;
+                    field[player.y, player.x] = 'X';
+                    field[A.y, A.x] = A.vbox;
+
+                    Console.Write(field[i, j]);
                 }
-                Console.Write(" |");
+                Console.Write("|");
                 Console.WriteLine();
             }
-
-            Console.WriteLine("---------------------");
+            Console.WriteLine("-----------");
         }
     }
 }
