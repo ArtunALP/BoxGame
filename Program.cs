@@ -61,7 +61,6 @@ namespace BoxGame
 
                 if(Xholder == boxXholder && Yholder == boxYholder)
                 {
-                    Console.WriteLine("aaa");
                     switch(moveDir)
                     {
                         case "w":
@@ -128,21 +127,21 @@ namespace BoxGame
 
         static void drawField(char[,] field)
         {
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("---------------------");
 
             for (int i = 0; i < columnSize; i++) //rows loop
             {
                 Console.Write("|");
                 for (int j = 0; j < columnSize; j++) //columns loop
                 {
-                    Console.Write("  ");
+                    Console.Write(" ");
                     Console.Write(field[i,j]);
                 }
-                Console.Write("  |");
+                Console.Write(" |");
                 Console.WriteLine();
             }
 
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("---------------------");
         }
     }
 }
