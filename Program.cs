@@ -21,6 +21,13 @@ namespace BoxGame
             
             bool winner = false;
 
+            Console.WriteLine("Instructions: use the W, A, S and D keys to move. You control the 'X'");
+            Console.WriteLine("              your goal is to push the box ('O') into the hole ('0').");
+            Console.WriteLine("              if the box touches the edges of the field, you lose.");
+            Console.WriteLine("              press any key to continue.");
+            Console.ReadKey();
+            Console.Clear();
+
             while (gameRunning)
             {
                 drawField(field);
